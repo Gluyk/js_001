@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<div id="result"></div>
+
+<script>
+    (function () {
+        'use strict';
+
+        const queryString = window.location.search
+        const urlParams = new URLSearchParams(queryString)
+        const question = urlParams.get('question')
+        const parameter = urlParams.get('parameter')
+        const resultElement = document.getElementById('result')
+
+        const defaultResults = 'something is wrong'
+        const results = [
+            [
+                ['question 1 A'],
+                ['question 1 B'],
+                ['question 1 C'],
+            ],
+            [
+                ['question 2 A'],
+                ['question 2 B'],
+                ['question 2 C'],
+            ],
+            [
+                ['question 3 A'],
+                ['question 3 B'],
+                ['question 3 C'],
+            ],
+        ]
+
+        function calculateQuestion() {
+           return question - 1
+        }
+
+        function calculateParameter() {
+            return (parseInt(parameter, 36) - 9) - 1
+        }
+
+        function getResult() {
+            let res = results[calculateQuestion()][calculateParameter()]
+            if (res !== undefined) {
+                return res
+            } else {
+                return defaultResults
+            }
+        }
+
+        function renderResult() {
+            resultElement.innerHTML = getResult();
+        }
+
+        function start() {
+            renderResult()
+        }
+
+        start()
+    }());
+
+</script>
+</body>
+</html>
